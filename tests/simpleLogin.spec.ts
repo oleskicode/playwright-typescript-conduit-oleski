@@ -5,14 +5,14 @@ import dotenv from "dotenv";
 test("UI - Simple Login Test", async ({ page }) => {
   const loginPage = new LoginPage(page);
 
-  await page.goto(process.env.BASE_URL!);
+  // Open Login page
+  await loginPage.goto();
 
-  await loginPage.signInLink.click();
-  await loginPage.emailInput.fill(process.env.USER_EMAIL!);
-  await loginPage.passwordInput.fill(process.env.USER_PASSWORD!);
-  await loginPage.signInButton.click();
-  await loginPage.userProfileNameLink.click();
-  await expect(loginPage.editUserProfileSettings).toBeVisible();
+  // Login
+  await loginPage.login(process.env.USER_EMAIL!, process.env.USER_PASSWORD!);
+
+  // Verify
+  await loginPage.verifyUserIsLoggedIn(process.env.USER_NAME!);
 });
 
 test.beforeEach(() => {

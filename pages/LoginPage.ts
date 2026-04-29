@@ -24,4 +24,20 @@ export class LoginPage {
       name: " Edit Profile Settings",
     });
   }
+
+  async goto() {
+    await this.page.goto(process.env.BASE_URL!);
+  }
+
+  async login(email: string, password: string) {
+    await this.signInLink.click();
+    await this.emailInput.fill(email);
+    await this.passwordInput.fill(password);
+    await this.signInButton.click();
+  }
+
+  async verifyUserIsLoggedIn(userName: string) {
+    await this.userProfileNameLink.click();
+    await expect(this.editUserProfileSettings).toBeVisible();
+  }
 }
