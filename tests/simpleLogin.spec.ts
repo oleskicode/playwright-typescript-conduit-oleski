@@ -1,29 +1,22 @@
 import { test, expect } from "@playwright/test";
+import { LoginPage } from "../pages/LoginPage";
 import dotenv from "dotenv";
 
 test("UI - Simple Login Test", async ({ page }) => {
-  await page.goto(process.env.BASE_URL!); // Error: page.goto: url: expected string, got undefined
-  await page.getByRole("link", { name: " Sign in" }).click();
-  await page.getByRole("textbox", { name: "Email" }).click();
-  await page
-    .getByRole("textbox", { name: "Email" })
-    .fill(process.env.USER_EMAIL!);
-  await page.getByRole("textbox", { name: "Password" }).click();
-  await page
-    .getByRole("textbox", { name: "Password" })
-    .fill(process.env.USER_PASSWORD!);
-  await page.getByRole("button", { name: "Sign in" }).click();
-  await expect(
-    page.getByRole("link", { name: process.env.USER_NAME }),
-  ).toBeVisible();
-  await page.getByRole("link", { name: process.env.USER_NAME }).click();
-  await expect(
-    page.getByRole("link", { name: " Edit Profile Settings" }),
-  ).toBeVisible();
+  const loginPage = new LoginPage(page);
+
+  await page.goto(process.env.BASE_URL!);
+
+  await loginPage.signInLink.click();
+  await loginPage.emailInput.fill(process.env.USER_EMAIL!);
+  await loginPage.passwordInput.fill(process.env.USER_PASSWORD!);
+  await loginPage.signInButton.click();
+  await loginPage.userProfileNameLink.click();
+  await expect(loginPage.editUserProfileSettings).toBeVisible();
 });
 
 test.beforeEach(() => {
-  console.log("HOOK-beforeEach");
+  console.log("hook beforeEach");
 
   test.info().annotations.push({
     type: "Start Time:",
@@ -32,7 +25,7 @@ test.beforeEach(() => {
 });
 
 test.afterEach(() => {
-  console.log("HOOK-afterEach");
+  console.log("hook afterEach");
 
   test.info().annotations.push({
     type: "End Time:",
