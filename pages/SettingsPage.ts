@@ -23,9 +23,9 @@ export class SettingsPage {
     this.signUpLink = this.page
       .getByRole("listitem")
       .filter({ hasText: "Sign up" });
-    this.userNameProfileLink = this.page.getByRole("link", {
-      name: process.env.USER_NAME,
-    });
+    this.userNameProfileLink = this.page
+      .getByRole("listitem")
+      .filter({ hasText: process.env.USER_NAME });
     this.settingsPageLink = this.page
       .getByRole("listitem")
       .filter({ hasText: "Settings" });
