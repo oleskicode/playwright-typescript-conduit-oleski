@@ -1,25 +1,25 @@
 import { test, expect } from "../../fixtures/auth-fixture";
 
-test.describe(" API - Articles", { tag: "@api" }, () => {
-  test("API - Acticle CRUD operations", async ({ request, authToken }) => {
-    console.log("Using authToken: ", authToken);
-
-    const articleTitle = "Article Name + " + Date.now();
-    const articleDescription = "Description for " + articleTitle;
-    const articleBody = "Body Text for " + articleTitle;
+test.describe("API - Articles", { tag: "@api" }, () => {
+  test("API - Article CRUD operations", async ({ request, authToken }) => {
+    // console.log("Using authToken: ", authToken);
+    const articlesUrl = `${process.env.API_BASE_URL}/articles`;
+    const articleTitle = `Article Name ${Date.now()}`;
+    const articleDescription = `Description for ${articleTitle}`;
+    const articleBody = `Body Text for ${articleTitle}`;
+    const authHeaders = {
+      Authorization: `Token ${authToken}`,
+      "Content-Type": "application/json",
+    };
 
     // --- CREATE ---
-    const requestURLCreateArticle = process.env.API_BASE_URL + "/articles";
-    const responseCreate = await request.post(requestURLCreateArticle, {
+    const requestURLCreateArticle = `${articlesUrl}`;
+    const createResponse = await request.post(requestURLCreateArticle, {
       // 1. Add the headers object
-      headers: {
-        Authorization: `Token ${authToken}`,
-        "Content-Type": "application/json",
-      },
+      headers: authHeaders,
       // 2. Pass data
       data: {
         article: {
-          author: {},
           title: articleTitle,
           description: articleDescription,
           body: articleBody,
@@ -28,41 +28,30 @@ test.describe(" API - Articles", { tag: "@api" }, () => {
       },
     });
 
-    expect(responseCreate.ok()).toBeTruthy();
-    expect(responseCreate.status()).toBe(200);
-    const responseBody = await responseCreate.json();
-    const createdArticleSlug = responseBody.article.slug;
-    console.log("Created Article Slug:", createdArticleSlug);
+    expect(createResponse.ok()).toBeTruthy();
+    expect(createResponse.status()).toBe(200);
+    const createResponseBody = await createResponse.json();
+    const createdArticleSlug = createResponseBody.article.slug;
+    // console.log("Created Article Slug: ", createdArticleSlug);
 
     // -- READ --
-    const responseRead = await request.get(
-      requestURLCreateArticle + "/" + createdArticleSlug,
-      {
-        data: {
-          article: {
-            slug: createdArticleSlug,
-          },
-        },
-      },
+    const readResponse = await request.get(
+      `${requestURLCreateArticle}/${createdArticleSlug}`,
     );
-
-    expect(responseRead.ok()).toBeTruthy();
-    expect(responseCreate.status()).toBe(200);
-    const responseReadBody = await responseRead.json();
-    console.log(responseReadBody);
+    expect(readResponse.ok()).toBeTruthy();
+    expect(readResponse.status()).toBe(200);
+    const responseReadBody = await readResponse.json();
+    // console.log(responseReadBody);
     expect(responseReadBody.article.title).toEqual(articleTitle);
     expect(responseReadBody.article.description).toEqual(articleDescription);
     expect(responseReadBody.article.body).toEqual(articleBody);
 
     // --- UPDATE ---
     const requestURLUpdateArticle = `${requestURLCreateArticle}/${createdArticleSlug}`;
-    console.log("requestURLUpdateArticle: " + requestURLUpdateArticle);
-    const responseUpdate = await request.put(requestURLUpdateArticle, {
+    // console.log("requestURLUpdateArticle: " + requestURLUpdateArticle);
+    const updateResponse = await request.put(requestURLUpdateArticle, {
       // 1. Add the headers object
-      headers: {
-        Authorization: `Token ${authToken}`,
-        "Content-Type": "application/json",
-      },
+      headers: authHeaders,
       // 2. Pass data
       data: {
         article: {
@@ -73,33 +62,39 @@ test.describe(" API - Articles", { tag: "@api" }, () => {
         },
       },
     });
-    if (!responseUpdate.ok()) {
-      console.log(await responseUpdate.json());
+    if (!updateResponse.ok()) {
+      console.log(await updateResponse.json());
     }
 
-    expect(responseUpdate.ok()).toBeTruthy();
-    expect(responseUpdate.status()).toBe(200);
-    const responceUpdateBody = await responseUpdate.json();
-    expect(responceUpdateBody.article.title).toEqual("UPD " + articleTitle);
-    expect(responceUpdateBody.article.description).toEqual(
+    expect(updateResponse.ok()).toBeTruthy();
+    expect(updateResponse.status()).toBe(200);
+    const updateResponseBody = await updateResponse.json();
+    expect(updateResponseBody.article.title).toEqual("UPD " + articleTitle);
+    expect(updateResponseBody.article.description).toEqual(
       "UPD " + articleDescription,
     );
-    expect(responceUpdateBody.article.body).toEqual("UPD " + articleBody);
-    expect(responceUpdateBody.article.slug).toEqual(createdArticleSlug);
+    expect(updateResponseBody.article.body).toEqual("UPD " + articleBody);
+    expect(updateResponseBody.article.slug).toEqual(createdArticleSlug);
 
     // --- DELETE ---
-    const requestURLDeleteArticle = `${process.env.API_BASE_URL}/articles/${createdArticleSlug}`;
-    console.log("requestURLDeleteArticle: " + requestURLDeleteArticle);
+    const requestURLDeleteArticle = `${articlesUrl}/${createdArticleSlug}`;
+    // console.log("requestURLDeleteArticle: " + requestURLDeleteArticle);
 
-    const requestDelete = await request.delete(requestURLDeleteArticle, {
+    const deleteResponse = await request.delete(requestURLDeleteArticle, {
       // Add the headers object
-      headers: {
-        Authorization: `Token ${authToken}`,
-        "Content-Type": "application/json",
-      },
+      headers: authHeaders,
     });
-    if (!requestDelete.ok()) {
-      console.log(await requestDelete.json());
+    if (!deleteResponse.ok()) {
+      console.log(await deleteResponse.json());
     }
+    expect(deleteResponse.ok()).toBeTruthy();
+    expect(deleteResponse.status()).toBe(204);
+
+    // Verify deletion
+    const verifyDeleteResponse = await request.get(
+      `${articlesUrl}/${createdArticleSlug}`,
+    );
+    expect(verifyDeleteResponse.ok()).toBeFalsy();
+    expect(verifyDeleteResponse.status()).toBe(404);
   });
 });
