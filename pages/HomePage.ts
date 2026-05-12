@@ -15,7 +15,7 @@ export class HomePage {
       .getByRole("listitem")
       .filter({ hasText: "New Article" });
     this.settings = page.getByRole("listitem").filter({ hasText: "Settings" });
-    this.userProfileNameLink = page.getByRole("link", {
+    this.userProfileNameLink = page.locator("li.nav-item").getByRole("link", {
       name: process.env.USER_NAME,
     });
     this.signUpLink = page.getByRole("link", { name: "Sign up" });
@@ -28,7 +28,11 @@ export class HomePage {
   async verifyUserIsLoggedIn(userName: string) {
     await expect(this.newArticleLink).toBeEnabled();
     await expect(this.settings).toBeEnabled();
-    await expect(this.page.getByRole("link", { name: userName })).toBeEnabled();
+    await expect(
+      this.page.locator("li.nav-item").getByRole("link", {
+        name: userName,
+      }),
+    ).toBeEnabled();
   }
 
   async openUserProfile() {
