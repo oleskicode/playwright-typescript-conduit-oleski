@@ -1,4 +1,4 @@
-import { test } from "../fixtures/baseTest";
+import { test } from "../fixtures/baseTest.fixture";
 import { HomePage } from "../pages/HomePage";
 import { UserProfilePage } from "../pages/UserProfilePage";
 
