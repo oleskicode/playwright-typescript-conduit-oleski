@@ -26,8 +26,8 @@ Before running the tests, ensure you have an active, registered user account on 
    USER_NAME=someJohn
    USER_EMAIL=john@testemail.com
    USER_PASSWORD=sdfgsADSG123
-   API_BASE_URL=[https://conduit-api.learnwebdriverio.com/api](https://conduit-api.learnwebdriverio.com/api)
-   BASE_URL=[https://demo.learnwebdriverio.com](https://demo.learnwebdriverio.com)
+   API_BASE_URL=https://conduit-api.learnwebdriverio.com/api
+   BASE_URL=https://demo.learnwebdriverio.com
    ```
 4. **Run the tests:**
 
