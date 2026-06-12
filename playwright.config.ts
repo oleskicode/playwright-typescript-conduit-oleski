@@ -5,7 +5,7 @@ dotenv.config();
 
 export default defineConfig({
   // Global setup:
-  globalSetup: "./fixtures/global.setup.ts",
+  globalSetup: "./fixtures/global.setup.resigster.user.ts",
   testDir: "./tests",
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
