@@ -1,4 +1,4 @@
-import { test, expect } from "../fixtures/ui.pages.fixture";
+import { test, expect } from "../../fixtures/ui.pages.fixture";
 
 test("UI - API Response Mock - Empty tag list", async ({ page, homePage }) => {
   await page.route(`**/api/tags**`, async (route) => {

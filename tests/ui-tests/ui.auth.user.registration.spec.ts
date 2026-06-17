@@ -1,5 +1,5 @@
-import { test } from "../fixtures/ui.pages.fixture";
-import { createUser } from "../helpers/userFactory";
+import { test } from "../../fixtures/ui.pages.fixture";
+import { createUser } from "../../helpers/userFactory";
 
 test.describe("User Registration", () => {
   test("UI - Register new user successfully", async ({

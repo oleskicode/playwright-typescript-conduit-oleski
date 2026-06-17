@@ -1,4 +1,4 @@
-import { test, expect } from "../fixtures/ui.pages.fixture";
+import { test, expect } from "../../fixtures/ui.pages.fixture";
 
 test("UI - API Response Mock - Verify no articles is shown correctly", async ({
   page,
