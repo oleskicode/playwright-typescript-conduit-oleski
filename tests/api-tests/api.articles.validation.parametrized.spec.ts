@@ -35,7 +35,7 @@ const testCases = [
 ];
 
 for (const { testCase: testCase, buildArticle } of testCases) {
-  test(`API - create article with ${testCase}`, async ({
+  test(`API - Create article with ${testCase}`, async ({
     request,
     authToken,
   }) => {
