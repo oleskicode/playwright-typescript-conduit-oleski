@@ -34,30 +34,32 @@ const testCases = [
   },
 ];
 
-for (const { testCase: testCase, buildArticle } of testCases) {
-  test(`API - Create article with ${testCase}`, async ({
-    request,
-    authToken,
-  }) => {
-    const authHeaders = {
-      Authorization: `Token ${authToken}`,
-      "Content-Type": "application/json",
-    };
+test.describe("API - Create article validation", () => {
+  for (const { testCase, buildArticle } of testCases) {
+    test(`API - Create article with ${testCase}`, async ({
+      request,
+      authToken,
+    }) => {
+      const authHeaders = {
+        Authorization: `Token ${authToken}`,
+        "Content-Type": "application/json",
+      };
 
-    const invalidArticle = buildArticle();
+      const invalidArticle = buildArticle();
 
-    const response = await request.post(
-      `${process.env.API_BASE_URL}/articles`,
-      {
-        headers: authHeaders,
-        data: invalidArticle,
-      },
-    );
+      const response = await request.post(
+        `${process.env.API_BASE_URL}/articles`,
+        {
+          headers: authHeaders,
+          data: invalidArticle,
+        },
+      );
 
-    const responseBody = await response.json();
-    articleSlug = responseBody.article.slug;
+      const responseBody = await response.json();
+      articleSlug = responseBody.article.slug;
 
-    expect(response.ok()).toBeTruthy();
-    expect(response.status()).toBe(200);
-  });
-}
+      expect(response.ok()).toBeTruthy();
+      expect(response.status()).toBe(200);
+    });
+  }
+});
