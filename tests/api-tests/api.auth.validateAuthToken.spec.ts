@@ -5,8 +5,6 @@ test.describe(
   { tag: ["@api", "@authentication"] },
   () => {
     test("API - Get and validate JWT auth token", async ({ authToken }) => {
-      // console.log("Using authToken:", authToken);
-
       // Verify token structure
       expect(authToken).toBeTruthy();
       expect(typeof authToken).toBe("string");

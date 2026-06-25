@@ -49,7 +49,6 @@ test.describe("API Login", () => {
       });
 
       const body = await response.json();
-      // console.log(body);
 
       if (loginCase.successExpected) {
         expect(response.status()).toBe(200);

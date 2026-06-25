@@ -7,7 +7,7 @@ export const test = base.extend({
     const authToken = await getAuthTokenFn(request);
     // Inject Auth Token into localStorage
     await page.addInitScript((token) => {
-      window.localStorage.setItem("id_token", token);
+      globalThis.localStorage.setItem("id_token", token);
     }, authToken);
 
     // Pass authenticated page context into the test

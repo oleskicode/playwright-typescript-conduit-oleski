@@ -1,4 +1,4 @@
-import { test, expect } from "../../fixtures/ui.pages.fixture";
+import { test } from "../../fixtures/ui.pages.fixture";
 
 test.describe("UI - Mock API Responses - No Tags", () => {
   test("UI - API Response Mock - Empty tag list", async ({

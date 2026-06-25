@@ -11,7 +11,7 @@ export interface ArticlePayload {
 
 export class ArticleBuilder {
   // Initialize
-  private payload: ArticlePayload = {
+  private readonly payload: ArticlePayload = {
     article: {
       title: faker.lorem.sentence(),
       description: faker.lorem.sentences(2),

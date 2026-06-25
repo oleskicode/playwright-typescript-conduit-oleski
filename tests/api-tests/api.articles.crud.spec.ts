@@ -15,10 +15,10 @@ test.describe("API - Articles", { tag: "@api" }, () => {
         },
       );
 
-      if (!deleteResponse.ok()) {
-        console.log("Cleanup failed:", await deleteResponse.text());
-      } else {
+      if (deleteResponse.ok()) {
         console.log(`Cleanup successful. Deleted article: ${articleSlug}`);
+      } else {
+        console.log("Cleanup failed:", await deleteResponse.text());
       }
     }
 
