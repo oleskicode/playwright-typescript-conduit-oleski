@@ -1,10 +1,22 @@
 # Playwright Playground
 
 🐳 **Docker-ready** | 🎭 Playwright + TypeScript | API & E2E Testing
+
 A TypeScript-based Playwright test automation framework showcasing both API and End-to-End (E2E) testing practices.
+
 Fully containerized with Docker for consistent, environment-agnostic test execution.
 
 **Website Under Test:** [Conduit (Learn WebdriverIO)](https://demo.learnwebdriverio.com/)
+
+---
+
+## 📊 Live Test Report - GitHub Pages:
+
+Every push triggers the full suite via GitHub Actions, and the HTML report is automatically published to GitHub Pages — no need to clone the repo or dig through CI logs to see the results:
+
+**🔗 [View the latest test report](https://oleskicode.github.io/Playwright-Typescript-with-GitHubActions-conduit-oleski/)**
+
+The report includes full traces, screenshots, and step-by-step breakdowns for every run, across all browser/device projects (`chromium`, `android`, `iphone`) — always reflecting the most recent commit on `master`.
 
 ---
 
@@ -21,40 +33,40 @@ Before running the tests, ensure you have an active, registered user account on 
 
 ## Getting Started
 
-1.  **Clone the repository and install dependencies:**
+1. **Clone the repository and install dependencies:**
 
 ```bash
-    npm install
+npm install
 ```
 
-2.  **Install Playwright Browsers:**
+2. **Install Playwright Browsers:**
 
 ```bash
-    npx playwright install
+npx playwright install
 ```
 
-3.  **Configure Environment Variables:**
+3. **Configure Environment Variables:**
 
-    Create a `.env` file in the root folder of the project and populate it with your registered user credentials:
+Create a `.env` file in the root folder of the project and populate it with your registered user credentials:
 
 ```env
-    USER_NAME=someJohn
-    USER_EMAIL=john@testemail.com
-    USER_PASSWORD=sdfgsADSG123
-    API_BASE_URL=https://conduit-api.learnwebdriverio.com/api
-    BASE_URL=https://demo.learnwebdriverio.com
+USER_NAME=someJohn
+USER_EMAIL=john@testemail.com
+USER_PASSWORD=sdfgsADSG123
+API_BASE_URL=https://conduit-api.learnwebdriverio.com/api
+BASE_URL=https://demo.learnwebdriverio.com
 ```
 
-4.  **Run the tests:**
+4. **Run the tests:**
 
 ```bash
-    npx playwright test
+npx playwright test
 ```
 
-5.  **View the test report:**
+5. **View the test report:**
 
 ```bash
-    npx playwright show-report
+npx playwright show-report
 ```
 
 ---
@@ -63,27 +75,27 @@ Before running the tests, ensure you have an active, registered user account on 
 
 The test suite is fully containerized using the official Playwright image, which bundles all three browser engines (Chromium, WebKit, and Mobile Chrome) so no local browser installation is required.
 
-1.  **Build the image:**
+1. **Build the image:**
 
 ```bash
-    docker compose build
+docker compose build
 ```
 
-2.  **Run the full suite:**
+2. **Run the full suite:**
 
 ```bash
-    docker compose run --rm tests
+docker compose run --rm tests
 ```
 
-    This spins up a container that runs `globalSetup` (registering the test user via the API, fetching an auth token, and seeding `localStorage`), then executes all 57 tests across the `chromium`, `android`, and `iphone` projects.
+This spins up a container that runs `globalSetup` (registering the test user via the API, fetching an auth token, and seeding `localStorage`), then executes all 57 tests across the `chromium`, `android`, and `iphone` projects.
 
-3.  **View results:**
+3. **View results:**
 
-    Test artifacts are written to the host via volume mounts, so they're available after the container exits:
+Test artifacts are written to the host via volume mounts, so they're available after the container exits:
 
 ```bash
-    npx playwright show-report   # opens ./playwright-report
-    ls test-results/             # screenshots, traces for failed tests
+npx playwright show-report   # opens ./playwright-report
+ls test-results/             # screenshots, traces for failed tests
 ```
 
 ### Rebuilding after code changes
