@@ -14,7 +14,7 @@ test.describe("API - Articles Favorites Counter", { tag: "@api" }, () => {
   let articleSlug: string | undefined;
   let authorToken: string | undefined;
 
-  test.afterEach(async ({ request }, testInfo) => {
+  test.afterEach(async ({ request }) => {
     if (articleSlug) {
       // cleanup using the article author's token
       await request.delete(`${apiBase}/articles/${articleSlug}`, {
@@ -48,7 +48,7 @@ test.describe("API - Articles Favorites Counter", { tag: "@api" }, () => {
       data: articlePayload,
     });
     expect(createRes.ok()).toBeTruthy();
-    const createdBody = await createRes.json();
+    const createdBody: unknown = await createRes.json();
     const { article: created } = ArticleResponseSchema.parse(createdBody);
     articleSlug = created.slug;
 
@@ -63,7 +63,7 @@ test.describe("API - Articles Favorites Counter", { tag: "@api" }, () => {
       },
     );
     expect(fav1.ok()).toBeTruthy();
-    const fav1Body = await fav1.json();
+    const fav1Body: unknown = await fav1.json();
     const { article: fav1Article } = ArticleResponseSchema.parse(fav1Body);
     expect(fav1Article.favoritesCount).toBe(1);
 
@@ -75,14 +75,14 @@ test.describe("API - Articles Favorites Counter", { tag: "@api" }, () => {
       },
     );
     expect(fav2.ok()).toBeTruthy();
-    const fav2Body = await fav2.json();
+    const fav2Body: unknown = await fav2.json();
     const { article: fav2Article } = ArticleResponseSchema.parse(fav2Body);
     expect(fav2Article.favoritesCount).toBe(2);
 
     // final GET to ensure persisted
     const getRes = await request.get(`${apiBase}/articles/${articleSlug}`);
     expect(getRes.ok()).toBeTruthy();
-    const getBody = await getRes.json();
+    const getBody: unknown = await getRes.json();
     const { article: getArticle } = ArticleResponseSchema.parse(getBody);
     expect(getArticle.favoritesCount).toBe(2);
   });
