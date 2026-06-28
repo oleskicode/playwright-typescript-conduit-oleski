@@ -1,5 +1,6 @@
 import { test, expect } from "../../fixtures/api.authToken.fixture";
 import { ArticleBuilder } from "../../helpers/articleBuilder";
+import { ArticleResponseSchema } from "../../schemas/api.article.schema";
 
 let articleSlug: string | undefined;
 
@@ -55,8 +56,9 @@ test.describe("API - Create article validation", () => {
         },
       );
 
-      const responseBody = await response.json();
-      articleSlug = responseBody.article.slug;
+      const responseBody: unknown = await response.json();
+      const { article } = ArticleResponseSchema.parse(responseBody);
+      articleSlug = article.slug;
 
       expect(response.ok()).toBeTruthy();
       expect(response.status()).toBe(200);

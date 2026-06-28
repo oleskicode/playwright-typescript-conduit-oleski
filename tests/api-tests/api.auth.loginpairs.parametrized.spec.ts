@@ -52,7 +52,7 @@ test.describe("API Login", () => {
         },
       });
 
-      const body = await response.json();
+      const body: unknown = await response.json();
 
       if (loginCase.successExpected) {
         expect(response.status()).toBe(200);

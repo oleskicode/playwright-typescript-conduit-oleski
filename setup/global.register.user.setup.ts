@@ -16,7 +16,7 @@ async function globalSetup() {
 
   const apiContext = await request.newContext({
     baseURL: apiBaseUrl,
-  } as any);
+  });
 
   try {
     const response = await apiContext.post(`/api/users`, {
@@ -44,7 +44,7 @@ async function globalSetup() {
 
   const authContext = await request.newContext({
     baseURL: apiBaseUrl,
-  } as any);
+  });
 
   try {
     const authToken = await getAuthTokenFn(authContext);

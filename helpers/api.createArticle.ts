@@ -19,7 +19,7 @@ export async function createArticle(
     data: payload,
   });
   expect(res.ok()).toBeTruthy();
-  const body = await res.json();
+  const body: unknown = await res.json();
   const { article } = ArticleResponseSchema.parse(body);
   return article;
 }

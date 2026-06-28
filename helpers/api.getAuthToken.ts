@@ -1,4 +1,5 @@
 import { APIRequestContext, expect } from "@playwright/test";
+import { UserResponseSchema } from "../schemas/api.user.schema";
 
 // Helper function to fetch the authentication token.
 export async function getAuthTokenFn(
@@ -22,8 +23,9 @@ export async function getAuthTokenFn(
 
   expect(response.ok()).toBeTruthy();
 
-  const responseBody = await response.json();
-  const token = responseBody.user.token;
+  const responseBody: unknown = await response.json();
+  const { user } = UserResponseSchema.parse(responseBody);
+  const token = user.token;
   expect(token).toBeDefined();
 
   return token;

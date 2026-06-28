@@ -1,13 +1,13 @@
 import { test } from "../../fixtures/ui.pages.fixture";
 
-test.beforeEach(async ({}, testInfo) => {
+test.beforeEach(({}, testInfo) => {
   testInfo.annotations.push({
     type: "startTime",
     description: new Date().toISOString(),
   });
 });
 
-test.afterEach(async ({}, testInfo) => {
+test.afterEach(({}, testInfo) => {
   testInfo.annotations.push({
     type: "endTime",
     description: new Date().toISOString(),

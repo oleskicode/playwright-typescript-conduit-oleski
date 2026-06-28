@@ -49,7 +49,7 @@ export class ArticlesAPISteps {
     });
 
     await expect(response).toBeOK();
-    const body = await response.json();
+    const body: unknown = await response.json();
     const { article } = ArticleResponseSchema.parse(body);
 
     return article.slug;
@@ -62,7 +62,7 @@ export class ArticlesAPISteps {
 
     await expect(response).toBeOK();
 
-    const body = await response.json();
+    const body: unknown = await response.json();
     const { article } = ArticleResponseSchema.parse(body);
 
     expect(article.title).toBe(this.articleDataOriginal.title);
@@ -83,7 +83,7 @@ export class ArticlesAPISteps {
 
     await expect(response).toBeOK();
 
-    const body = await response.json();
+    const body: unknown = await response.json();
     const { article } = ArticleResponseSchema.parse(body);
 
     expect(article.slug).toBe(articleSlug);

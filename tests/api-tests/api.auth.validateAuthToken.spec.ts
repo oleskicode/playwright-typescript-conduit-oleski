@@ -5,7 +5,7 @@ test.describe(
   "API - Authentication",
   { tag: ["@api", "@authentication"] },
   () => {
-    test("API - Get and validate JWT auth token", async ({ authToken }) => {
+    test("API - Get and validate JWT auth token", ({ authToken }) => {
       // Verify token structure
       expect(authToken).toBeTruthy();
       expect(typeof authToken).toBe("string");
@@ -13,7 +13,7 @@ test.describe(
       expect(tokenParts).toHaveLength(3); // JWT token has 3 parts separated by dots
 
       // Decode JWT payload
-      const decoded = JSON.parse(
+      const decoded: unknown = JSON.parse(
         Buffer.from(tokenParts[1]!, "base64").toString("utf-8"), // in the second part of JWT there is username encoded
       );
 

@@ -6,7 +6,7 @@ test.describe("User Feed", () => {
     userFeedPage,
   }) => {
     await homePage.goto();
-    await homePage.verifyUserIsLoggedIn(process.env.USER_NAME!);
+    await homePage.verifyUserIsLoggedIn();
     await homePage.openUserFeed();
     await userFeedPage.verifyUserFeedPageIsEmpty();
   });
