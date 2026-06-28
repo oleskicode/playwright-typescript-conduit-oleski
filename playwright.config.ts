@@ -5,7 +5,7 @@ dotenv.config();
 
 export default defineConfig({
   // Global setup:
-  globalSetup: "./setup/global.register.user.setup.ts",
+  globalSetup: "./setup/auth.setup.ts",
   testDir: "./tests",
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
